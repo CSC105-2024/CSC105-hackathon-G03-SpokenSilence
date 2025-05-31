@@ -21,7 +21,6 @@ function Register() {
         },
     });
     const navigate = useNavigate();
-
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordAgain, setShowPasswordAgain] = useState(false);
     const password = watch("password");
@@ -42,7 +41,7 @@ function Register() {
             <div>
                 {/* Signup Form */}
                 <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto bg-white rounded-3xl shadow-lg border p-8">
-                    <h1 className="text-3xl font-bold text-center mb-8">Signup</h1>
+                    <h1 className="text-3xl font-bold text-center mb-8">Sign up</h1>
 
                     <form onSubmit={handleSubmit(submitForm)}>
                         <div className="space-y-6">
@@ -146,7 +145,7 @@ function Register() {
                             </button>
                             <div className="text-center mt-6">
                                 <span className="text-gray-600">Already have an account? </span>
-                                <Link to="/login" className="text-purple-600 font-medium hover:text-purple-700">
+                                <Link to="/login" className="text-purple-600 font-medium hover:text-purple-700 hover:underline transition-colors duration-200">
                                     Signin
                                 </Link>
                             </div>
