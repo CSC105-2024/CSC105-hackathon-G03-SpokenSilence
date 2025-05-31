@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       Int       @id @default(autoincrement())
+  username String
+  name     String
+  surname  String
+
+  flowers  Flowers[]
+  history  History[]
+}
+
+model Flowers {
+  id         Int       @id @default(autoincrement())
+  message    String
+  url_flower String
+  access_key Int
+  user_id    Int
+
+  user       Users     @relation(fields: [user_id], references: [id])
+  history    History[]
+  meaning    Meaning[]
+}
+
+model History {
+  id        Int     @id @default(autoincrement())
+  flower_id Int
+  user_id   Int
+  view_at   DateTime
+
+  flower    Flowers @relation(fields: [flower_id], references: [id])
+  user      Users   @relation(fields: [user_id], references: [id])
+}
+
+model Meaning {
+  id        Int     @id @default(autoincrement())
+  mean      String
+  flower_id Int
+
+  flower    Flowers @relation(fields: [flower_id], references: [id])
+}
