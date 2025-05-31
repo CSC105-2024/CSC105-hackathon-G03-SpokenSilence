@@ -17,7 +17,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const [active, setActive] = useState(location.pathname);
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   useEffect(() => {
     setActive(location.pathname);
@@ -43,11 +43,11 @@ const Navbar = () => {
               <>
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
-                    active === "/dashboard"
+                    active === "/auth/dashboard/dashboard"
                       ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => navigate("/auth/dashboard/dashboard")}
                 >
                   Dashboard
                 </li>

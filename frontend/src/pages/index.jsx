@@ -1,12 +1,9 @@
-import Home from "@/components/home.jsx";
-import Header from "@/components/nav/app-header.jsx";
-
+import {ViewcardMo} from "@/components/modules/index.js";
 const Index = () => {
-  return (
-    <>
-      <Home />
-    </>
-  );
-};
-
+    return (
+        <>
+          <ViewcardMo />
+        </>
+    )
+}
 export default Index;
