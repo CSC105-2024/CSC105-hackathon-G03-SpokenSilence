@@ -4,10 +4,10 @@ import { FlowerModel } from "../models/index.js";
 
 class FlowerCrud extends AbstractController {
     async create(c: Context) {
-        const id = c.get('userId')
+        const userId = c.get('userId')
         const body = await c.req.json()
 
-        await FlowerModel.create(body, id)
+        await FlowerModel.create(body, userId)
         return this.json(c, 200, 'Flower created')
     }
     
@@ -19,8 +19,7 @@ class FlowerCrud extends AbstractController {
     }
     
     async validAccess(c: Context) {
-        const { flowerId, access_key } = await c.req.json()
-        const userId = c.get("userId")
+        const { flowerId, access_key, userId } = await c.req.json()
         const flower = await FlowerModel.validAccess(flowerId, access_key, userId)
 
         return this.data(c, flower, 200, 'Flower valid')

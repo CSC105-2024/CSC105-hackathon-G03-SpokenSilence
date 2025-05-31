@@ -13,7 +13,7 @@ datasource db {
 }
 
 model Users {
-  id       Int       @id @default(autoincrement())
+  id       Int          @id @default(autoincrement())
   username String
   name     String
   surname  String
@@ -25,33 +25,33 @@ model Users {
 }
 
 model Flowers {
-  id         Int       @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   name       String
   message    String
   url_flower String
   access_key Int
   user_id    Int
 
-  user       Users     @relation(fields: [user_id], references: [id])
+  user       Users      @relation(fields: [user_id], references: [id])
   history    History[]
   meaning    Meaning[]
 }
 
 model History {
-  id          Int     @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   flower_id   Int
   user_id     Int?
-  view_count  Int @default(0)
-  view_at     DateTime
+  view_count  Int       @default(0)
+  view_at     DateTime  @default(now())
 
-  flower    Flowers @relation(fields: [flower_id], references: [id])
-  user      Users?   @relation(fields: [user_id], references: [id])
+  flower    Flowers     @relation(fields: [flower_id], references: [id])
+  user      Users?      @relation(fields: [user_id], references: [id])
 }
 
 model Meaning {
-  id        Int     @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   mean      String
   flower_id Int
 
-  flower    Flowers @relation(fields: [flower_id], references: [id])
+  flower    Flowers     @relation(fields: [flower_id], references: [id])
 }

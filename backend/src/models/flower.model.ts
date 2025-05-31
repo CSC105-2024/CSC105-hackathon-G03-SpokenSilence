@@ -1,10 +1,9 @@
 import { prisma } from "../index.js";
 import  type { Flower } from '../types/index.js'
 import {HTTPException} from "hono/http-exception";
-import {useId} from "hono/dist/types/jsx/index.js";
 
 class FlowerModelLo {
-    async create(data: Flower, id:number, userId: number) {
+    async create(data: Flower, userId: number) {
         try {
             return await prisma.flowers.create({
                 data: {
@@ -14,7 +13,7 @@ class FlowerModelLo {
                     access_key: data.access_key,
                     user: {
                         connect: {
-                            id: id
+                            id: userId
                         }
                     }
                 },
@@ -46,14 +45,19 @@ class FlowerModelLo {
         return flower
     }
     
-    async validAccess(id: number, accessKey: number, userId:number) {
+    async validAccess(
+        flowerId: number,
+        accessKey: number,
+        userId:number
+    ) {
         
         const flower = await prisma.flowers.findUnique({
             where: {
-                id: id,
+                id: flowerId,
             }
         })
-                                
+        
+        
         if (!flower) {
             throw new HTTPException(404, {
                 message: 'Flower not found',
@@ -82,16 +86,14 @@ class FlowerModelLo {
                     view_count: { 
                         increment: 1 
                     },
-                    view_at: new Date(),
                 },
             })
         } else {
             await prisma.history.create({
                 data: {
                     flower_id: flower.id,
-                    userId: userId,
+                    user_id: userId,
                     view_count: 1,
-                    view_at: new Date(),
                 },
             })
         }

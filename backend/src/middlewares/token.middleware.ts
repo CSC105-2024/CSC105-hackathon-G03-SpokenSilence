@@ -32,7 +32,7 @@ export const authMiddleware = createMiddleware(async (c, next) => {
                 new TextEncoder().encode(env.JWT_REFRESH_SECRET),
             );
 
-            await generateNewJWTAndSetCookie(c, userId);
+            generateNewJWTAndSetCookie(c, userId);
             c.set("userId", userId);
             await next();
         } catch {

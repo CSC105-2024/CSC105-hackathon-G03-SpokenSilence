@@ -3,6 +3,7 @@ import {
     UserController,
     AuthController,
     FlowerController,
+    HistoryController
 } from "../controllers/index.js";
 import {
     authMiddleware,
@@ -26,5 +27,6 @@ api.get('/flowers', authMiddleware, (c) => FlowerController.readById(c))
 api.post('/flowers', authMiddleware, (c) => FlowerController.create(c));
 api.post('/flowers/access', (c) => FlowerController.validAccess(c))
 
+api.get('/history', authMiddleware, (c) => HistoryController.getAll(c))
 
 export { api }

@@ -1,14 +1,20 @@
 import {AbstractController} from "../core/http/index.js";
 import type {Context} from "hono";
 import { AuthModel } from "../models/index.js";
+import {getCookie} from "hono/cookie";
+import {HTTPException} from "hono/http-exception";
 
 
 class AuthCrud extends AbstractController{
     async login(c: Context) {
-
         const { username, password } = await c.req.json()
-        await AuthModel.login(username, password, c)
 
+        // if (getCookie(c, "accessToken") || getCookie(c, "refreshToken") ) {
+        //     throw new HTTPException(400, {
+        //         message: "Already logged"
+        //     })
+        // }
+        await AuthModel.login(username, password, c)
         return this.json(c, 200, "Logged In")
     }
     async logout(c: Context) {
