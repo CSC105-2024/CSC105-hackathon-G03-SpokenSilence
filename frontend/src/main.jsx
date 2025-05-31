@@ -6,14 +6,14 @@ import {
     Routes,
     Route,
 } from 'react-router-dom'
-import LoginPage from './pages/login';
-import Register from './pages/register';
+import LoginPage from './pages/Signin';
+import Register from './pages/Signup';
 
 function App() {
     return (
         <Suspense fallback={<p>Loading...</p>}>
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/Signin" element={<LoginPage />} />
                 <Route path="/Signup" element={<Register />} />
             </Routes>
         </Suspense>

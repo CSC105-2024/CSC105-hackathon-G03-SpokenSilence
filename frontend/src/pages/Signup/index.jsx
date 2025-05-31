@@ -145,7 +145,7 @@ function Register() {
                             </button>
                             <div className="text-center mt-6">
                                 <span className="text-gray-600">Already have an account? </span>
-                                <Link to="/login" className="text-purple-600 font-medium hover:text-purple-700 hover:underline transition-colors duration-200">
+                                <Link to="/Signin" className="text-purple-600 font-medium hover:text-purple-700 hover:underline transition-colors duration-200">
                                     Signin
                                 </Link>
                             </div>
