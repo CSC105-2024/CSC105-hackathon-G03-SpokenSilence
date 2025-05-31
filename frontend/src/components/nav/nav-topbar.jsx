@@ -55,11 +55,11 @@ const Navbar = () => {
                 </li>
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
-                    active === "/flower-information"
+                    active === "/flower-info"
                       ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
-                  onClick={() => navigate("/flower-information")}
+                  onClick={() => navigate("/flower-info")}
                 >
                   Flower Information
                 </li>
