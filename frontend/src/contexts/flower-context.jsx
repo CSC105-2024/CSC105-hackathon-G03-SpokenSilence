@@ -43,7 +43,7 @@ export const FlowerProvider = ({ children }) => {
         }
     };
    
-    const accessKey = async ({flower_id, access_key, user_id}) => {
+    const checkAccessKey = async ({flower_id, access_key, user_id}) => {
         try {
             setLoading(true)
             const response = await access_service({flower_id, access_key, user_id})
@@ -63,7 +63,7 @@ export const FlowerProvider = ({ children }) => {
             loading,
             error,
             flower,
-            accessKey,
+            checkAccessKey,
             createFlower,
         }}
         >

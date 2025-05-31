@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Dot from "@/components/dropdown/dot";
 
-const DetailCard = ({ message, accessKey }) => {
+const DetailCard = ({ message, accessKey , link}) => {
   const viewers = [
     {
       id: 1,
@@ -30,6 +30,8 @@ const DetailCard = ({ message, accessKey }) => {
       initials: "T1",
     },
   ];
+  console.log(link);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -39,7 +41,7 @@ const DetailCard = ({ message, accessKey }) => {
               className="w-full flex justify-end mb-4 lg:hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <Dot className="text-gray-600 cursor-pointer" />
+              <Dot className="text-gray-600 cursor-pointer" accessKey={accessKey} link={link}  />
             </div>
 
             <div className="flex flex-col items-center lg:flex-row lg:items-center">
@@ -65,7 +67,7 @@ const DetailCard = ({ message, accessKey }) => {
               className="hidden lg:block"
               onClick={(e) => e.stopPropagation()}
             >
-              <Dot accessKey={accessKey} />
+              <Dot accessKey={accessKey} link={link}/>
             </div>
           </CardContent>
         </Card>

@@ -5,7 +5,6 @@ import {useFlower} from "@/contexts/flower-context.jsx";
 
 const DashboardMo = () => {
     const { flower } = useFlower();
-    
     return (
         <div>
             <div className="flex justify-between">
@@ -15,7 +14,7 @@ const DashboardMo = () => {
             
             {flower?.map((f) => (
                 <div className="py-5" key={f.id}>
-                    <DetailCard message={f.message} accessKey={f.access_key}/>
+                    <DetailCard message={f.message} accessKey={f.access_key} link={f.url} />
                 </div>
             ))}
         </div>

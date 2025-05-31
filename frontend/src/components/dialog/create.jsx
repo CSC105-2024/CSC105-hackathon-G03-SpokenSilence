@@ -37,7 +37,7 @@ const Create = () => {
     e.preventDefault();
     const newAccessKey = generateAccessKey();
     const roseId = crypto.randomUUID();
-    const shareUrl = `${window.location.origin}/rose/${roseId}`;
+    const shareUrl = `${window.location.origin}/flower/${roseId}`;
 
     setAccessKey(newAccessKey);
     setShareUrl(shareUrl);

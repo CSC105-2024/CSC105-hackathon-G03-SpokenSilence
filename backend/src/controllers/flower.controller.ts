@@ -7,8 +7,8 @@ class FlowerCrud extends AbstractController {
         const userId = c.get('userId')
         const body = await c.req.json()
 
-        await FlowerModel.create(body, userId)
-        return this.json(c, 200, 'Flower created')
+        const flower = await FlowerModel.create(body, userId)
+        return this.data(c, flower, 200, 'Flower created')
     }
     
     async readById(c: Context) {
