@@ -6,8 +6,8 @@ import {
     refresh_api,
 } from "@/apis/auth.api.jsx";
 
-export const signUp = async ({ username, surname, email, password, department, role }) => {
-    const body = { username, surname, email, password, department, role };
+export const signUp = async ({ username, surname, password, name, url_user }) => {
+    const body = { username, surname, password, name, url_user };
     return await create_api(body);
 };
 

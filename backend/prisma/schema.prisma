@@ -29,8 +29,10 @@ model Flowers {
   name       String
   message    String
   url_flower String
+  url        String
   access_key Int
   user_id    Int
+  create_at  DateTime @default(now())
 
   user       Users      @relation(fields: [user_id], references: [id])
   history    History[]

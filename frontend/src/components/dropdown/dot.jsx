@@ -12,8 +12,9 @@ import Share from "@/components/dialog/share";
 import Edit from "@/components/dialog/edit";
 import Delete from "@/components/dialog/delete";
 
-const Dot = () => {
+const Dot = ({accessKey}) => {
   const [dialogType, setDialogType] = useState(null);
+  console.log(accessKey)
 
   return (
     <div>
@@ -46,7 +47,7 @@ const Dot = () => {
       </DropdownMenu>
 
       {dialogType === "share" && (
-        <Share open={true} onOpenChange={() => setDialogType(null)} />
+        <Share accessKey={accessKey} open={true} onOpenChange={() => setDialogType(null)} />
       )}
       {dialogType === "edit" && (
         <Edit open={true} onOpenChange={() => setDialogType(null)} />

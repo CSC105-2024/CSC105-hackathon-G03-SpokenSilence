@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import Choseflower from "@/components/dropdown/choseflower.jsx";
 
 const Edit = ({ open, onOpenChange }) => {
   return (
@@ -25,7 +26,7 @@ const Edit = ({ open, onOpenChange }) => {
           <div className="grid gap-4">
             <div className="grid gap-3">
               <Label htmlFor="name-1">Choose new Your Flower:</Label>
-              <Input placeholder="Type your message here." />
+              <Choseflower/>
             </div>
             <div className="grid gap-3">
               <Label htmlFor="username-1">Your Message:</Label>

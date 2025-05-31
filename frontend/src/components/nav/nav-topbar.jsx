@@ -16,11 +16,14 @@ import { useAuth } from "@/contexts/auth-context.jsx";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuth } = useAuth()
+  const { isAuth, signOutUser } = useAuth()
 
   const [active, setActive] = useState(location.pathname);
-  const isAuthenticated = true;
-
+  const handleLogout = async () => {
+    await signOutUser()
+    navigate("/");
+  };
+  
   useEffect(() => {
     setActive(location.pathname);
   }, [location.pathname]);
@@ -62,19 +65,18 @@ const Navbar = () => {
                   }`}
                   onClick={() => navigate("/flower-info")}
                 >
-                  Flower Information
+                  Flower
                 </li>
               </>
             )}
 
-            <li>
-              {isAuth? (
+            {isAuth? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
-                      variant="secondary"
-                      size="icon"
-                      className="hidden rounded-full md:flex cursor-pointer"
+                        variant="secondary"
+                        size="icon"
+                        className="hidden rounded-full md:flex cursor-pointer"
                     >
                       <CircleUser className="h-5 w-5" />
                       <span className="sr-only">Toggle user menu</span>
@@ -82,32 +84,31 @@ const Navbar = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="hidden md:block">
                     <DropdownMenuItem
-                      className="cursor-pointer"
-                      onClick={() => setDialogType("Changeprofile")}
+                        className="cursor-pointer"
+                        onClick={() => setDialogType("Changeprofile")}
                     >
                       Change Profile
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className={"cursor-pointer"}
-                      onClick={() => navigate("/")}
+                        className={"cursor-pointer"}
+                        onClick={handleLogout}
                     >
                       SignOut
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              ) : (
+            ) : (
                 <li
-                  className={`hidden py-2 px-3 md:flex cursor-pointer ${
-                    active === "/sign-in"
-                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
-                      : ""
-                  }`}
-                  onClick={() => navigate("/system/sign-in")}
+                    className={`hidden py-2 px-3 md:flex cursor-pointer ${
+                        active === "/system/sign-in"
+                            ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
+                            : ""
+                    }`}
+                    onClick={() => navigate("/system/sign-in")}
                 >
                   SignIn
                 </li>
-              )}
-            </li>
+            )}
           </ul>
           {dialogType === "Changeprofile" && (
             <Changeprofile

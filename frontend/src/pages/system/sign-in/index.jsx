@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-
+import { useAuth } from "@/contexts/auth-context.jsx";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button.jsx"
 function SignIn() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    
+    const { signInUser, error } = useAuth();
     const {
         register,
         handleSubmit,
@@ -18,26 +20,24 @@ function SignIn() {
             password: "",
         },
     });
-    const onSubmit = (data) => {
-        console.log('Sign in attempted with:', data);
-        // Handle sign in logic here
+    const onSubmit = async (data) => {
+        console.log(data.username)
+        await signInUser(data);
     };
 
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8">
+        <div className="flex items-center justify-center py-8">
             <div className="w-full px-4">
-                {/* Sign In Card */}
                 <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto bg-white rounded-3xl shadow-lg border p-8">
-                    <h1 className="text-center mb-8 text-3xl font-bold text-center mb-8">Sign in</h1>
+                    <h1 className="text-center mb-8 text-3xl font-bold">Sign in</h1>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        {/* Username Field */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Username
                             </label>
-                            <input
+                            <Input
                                 id="username"
                                 type="text"
                                 placeholder="username"
@@ -59,7 +59,7 @@ function SignIn() {
                                 Password
                             </label>
                             <div className="relative">
-                                <input
+                                <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
@@ -83,22 +83,22 @@ function SignIn() {
                             </div>
                             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                         </div>
-
-                        {/* Sign In Button */}
-                        <button
+                        
+                        <Button
                             type="submit"
                             className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-200 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                         >
-                            Signin
-                        </button>
+                            SignIn
+                        </Button>
+                        {error && <p className="text-sm text-red-500">{error}</p>}
                         <div className="text-center mt-6">
                             <p className="text-black">
                                 Don't have an account?{' '}
                                 <button
                                     className="text-purple-600 font-medium hover:text-purple-700 hover:underline transition-colors duration-200"
-                                    onClick={() => navigate("/Signup")}
+                                    onClick={() => navigate("/system/sign-up")}
                                 >
-                                    Signup
+                                    SignUp
                                 </button>
                             </p>
                         </div>

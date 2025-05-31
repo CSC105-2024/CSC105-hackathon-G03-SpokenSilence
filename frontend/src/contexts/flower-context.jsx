@@ -13,7 +13,7 @@ export const FlowerProvider = ({ children }) => {
             try {
                 setLoading(true)
                 const response = await get_service();
-                if (response.success) {
+                if (response.success && response?.data?.data) {
                     setFlower(response?.data?.data);
                 }
             } catch (error) {
@@ -26,14 +26,15 @@ export const FlowerProvider = ({ children }) => {
         fetchFlower()
     }, [])
 
-    const createFlower = async ({name, message, access_key, url_flower}) => {
+    const createFlower = async ({name, message, access_key, url_flower, url}) => {
         try {
             setLoading(true);
-            const response = await create_service({ name, message, access_key, url_flower });
+            const response = await create_service({name, message, access_key, url_flower, url });
             if (response.success) {
                 // const allFlower = await get_service();
                 setFlower((prev) => [...prev, ...response?.data?.data]);
             }
+            return response?.data?.data;
         } catch (error) {
             setFlower(null);
             setError(error?.response?.error);
@@ -64,7 +65,8 @@ export const FlowerProvider = ({ children }) => {
             flower,
             accessKey,
             createFlower,
-        }}>
+        }}
+        >
             {children}
         </FlowerContext.Provider>
     );

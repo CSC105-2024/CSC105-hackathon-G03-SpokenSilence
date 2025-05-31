@@ -11,6 +11,7 @@ class FlowerModelLo {
                     message: data.message,
                     url_flower: data.url_flower,
                     access_key: data.access_key,
+                    url: data.url,
                     user: {
                         connect: {
                             id: userId
@@ -19,6 +20,7 @@ class FlowerModelLo {
                 },
             })
         } catch (error) {
+            console.log(error)
             throw new HTTPException(400, {
                 message: 'Cannot create flower',
                 cause: {form: true},
@@ -27,7 +29,7 @@ class FlowerModelLo {
     }
 
     async readById (id: number) {
-        const flower = await prisma.flowers.findFirst({
+        const flower = await prisma.flowers.findMany({
             where: {
                 user_id: id
             },

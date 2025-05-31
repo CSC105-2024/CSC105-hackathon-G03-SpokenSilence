@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Dot from "@/components/dropdown/dot";
 
-const Detailcard = () => {
+const DetailCard = ({ message, accessKey }) => {
   const viewers = [
     {
       id: 1,
@@ -30,7 +30,6 @@ const Detailcard = () => {
       initials: "T1",
     },
   ];
-
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -53,7 +52,7 @@ const Detailcard = () => {
               </div>
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:ml-6 lg:px-5">
                 <p className="font-bold text-lg lg:text-2xl mb-2 lg:mb-0">
-                  " I LIKE YOU VERY MUCH "
+                  {message}
                 </p>
                 <div className="flex items-center mt-2 lg:mt-4">
                   <Calendar className="w-4 h-4 text-gray-600" />
@@ -66,7 +65,7 @@ const Detailcard = () => {
               className="hidden lg:block"
               onClick={(e) => e.stopPropagation()}
             >
-              <Dot />
+              <Dot accessKey={accessKey} />
             </div>
           </CardContent>
         </Card>
@@ -109,4 +108,4 @@ const Detailcard = () => {
   );
 };
 
-export default Detailcard;
+export default DetailCard;

@@ -3,9 +3,11 @@ import { FlowerProvider } from "@/contexts/flower-context.jsx";
 
 const Dashboard = () => {
     return (
-        <FlowerProvider>
-            <DashboardMo />
-        </FlowerProvider>
+        <>
+            <FlowerProvider>
+                <DashboardMo />
+            </FlowerProvider>
+        </>
     )
 }
 export default Dashboard;

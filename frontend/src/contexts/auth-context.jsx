@@ -39,17 +39,10 @@ export const AuthProvider = ({ children }) => {
         checkStatus().finally(() => setLoading(false));
     }, [])
 
-    const signUpUser = async ({
-                                  username,
-                                  surname,
-                                  email,
-                                  password,
-                                  role,
-                                  department,
-                              }) =>{
+    const signUpUser = async ({username, surname, name, password, url_user}) =>{
         setLoading(true);
         try {
-            const response = await signUp({username, surname, email, password, department, role});
+            const response = await signUp({username, surname, password, name, url_user });
             if (response.success) {
                 setUser(response?.data?.data);
                 navigate('/system/sign-in');
@@ -75,7 +68,7 @@ export const AuthProvider = ({ children }) => {
             }
             return response?.data?.data;
         } catch(error) {
-            setError(error.response.data.error);
+            setError(error?.response?.data?.error);
         } finally {
             setLoading(false);
         }

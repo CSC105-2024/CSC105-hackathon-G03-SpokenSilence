@@ -13,6 +13,7 @@ type Flower = {
     message: string,
     url_flower: string,
     access_key: number,
+    url: string
 }
 
 type SuccessResponse<T = void> = {

@@ -9,14 +9,13 @@ import {api} from './routes/index.js'
 export const prisma = new PrismaClient()
 
 const app = new Hono()
-app.route('', api)
-    
 
-app.use(cors({
+app.use('*', cors({
   origin: 'http://localhost:5173',
   credentials: true,
 }))
 
+app.route('', api)
 
 app.onError((err, c) => {
   if (err instanceof  HTTPException) {

@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Copy } from "lucide-react";
-const Share = ({ open, onOpenChange }) => {
+import {useFlower} from "@/contexts/flower-context.jsx";
+const Share = ({ open, onOpenChange , accessKey , link }) => {
+  const { flower } = useFlower();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
 
@@ -28,7 +30,7 @@ const Share = ({ open, onOpenChange }) => {
             <div className="flex">
               <Input
                 id="link"
-                defaultValue="https://ui.shadcn.com/docs/installation"
+                defaultValue={accessKey}
                 readOnly
               />
               <Button
