@@ -1,13 +1,21 @@
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import routes from '~react-pages'
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from 'react-router-dom'
+import LoginPage from './pages/login';
+import Register from './pages/register';
 
 function App() {
-    const route = useRoutes(routes)
     return (
         <Suspense fallback={<p>Loading...</p>}>
-            {route}
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/Signup" element={<Register />} />
+            </Routes>
         </Suspense>
     )
 }
