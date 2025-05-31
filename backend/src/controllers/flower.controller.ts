@@ -19,8 +19,8 @@ class FlowerCrud extends AbstractController {
     }
     
     async validAccess(c: Context) {
-        const { flowerId, access_key, userId } = await c.req.json()
-        const flower = await FlowerModel.validAccess(flowerId, access_key, userId)
+        const { flower_id, access_key, user_id } = await c.req.json()
+        const flower = await FlowerModel.validAccess(flower_id, access_key, user_id)
 
         return this.data(c, flower, 200, 'Flower valid')
     }

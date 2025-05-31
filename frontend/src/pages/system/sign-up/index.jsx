@@ -39,7 +39,6 @@ function Register() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8">
             <div className="w-full px-4">
             <div>
-                {/* Signup Form */}
                 <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto bg-white rounded-3xl shadow-lg border p-8">
                     <h1 className="text-3xl font-bold text-center mb-8">Sign up</h1>
 

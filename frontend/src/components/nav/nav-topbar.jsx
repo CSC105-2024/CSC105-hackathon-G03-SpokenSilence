@@ -11,10 +11,12 @@ import {
 import { Button } from "../ui/button";
 import { CircleUser, LogOut, Moon, Sun } from "lucide-react";
 import Changeprofile from "@/components/dialog/changeprofile";
+import { useAuth } from "@/contexts/auth-context.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuth } = useAuth()
 
   const [active, setActive] = useState(location.pathname);
   const isAuthenticated = true;
@@ -40,15 +42,15 @@ const Navbar = () => {
               View Card
             </li>
 
-            {isAuthenticated && (
+            {isAuth && (
               <>
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
-                    active === "/auth/dashboard/dashboard"
+                    active === "/dashboard"
                       ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
-                  onClick={() => navigate("/auth/dashboard/dashboard")}
+                  onClick={() => navigate("/dashboard")}
                 >
                   Dashboard
                 </li>
@@ -66,7 +68,7 @@ const Navbar = () => {
             )}
 
             <li>
-              {isAuthenticated ? (
+              {isAuth? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
@@ -89,20 +91,20 @@ const Navbar = () => {
                       className={"cursor-pointer"}
                       onClick={() => navigate("/")}
                     >
-                      Signout
+                      SignOut
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
-                    active === "/Signin"
+                    active === "/sign-in"
                       ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
-                  onClick={() => navigate("/Signin")}
+                  onClick={() => navigate("/system/sign-in")}
                 >
-                  Signin
+                  SignIn
                 </li>
               )}
             </li>

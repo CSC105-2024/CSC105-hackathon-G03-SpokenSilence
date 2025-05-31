@@ -9,7 +9,7 @@ const SpokenSilenceAccess = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
+    <div className="bg-white flex flex-col items-center justify-center mt-3">
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold text-gray-900 mb-4">
           Spoken Silence
@@ -19,7 +19,7 @@ const SpokenSilenceAccess = () => {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full border border-gray-700">
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
             Have an Access Key?
@@ -36,7 +36,7 @@ const SpokenSilenceAccess = () => {
               placeholder="Enter access key"
               value={accessKey}
               onChange={(e) => setAccessKey(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700 placeholder-gray-400"
+              className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent text-gray-700 placeholder-gray-400"
             />
           </div>
           

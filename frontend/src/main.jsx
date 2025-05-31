@@ -7,10 +7,11 @@ import {
 } from 'react-router-dom'
 import routes from '~react-pages'
 import Layout from '@/components/layouts/main-layout.jsx'
+import { AuthProvider } from './contexts/auth-context.jsx'
 
 function App() {
     return (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense>
             <Layout>{useRoutes(routes)}</Layout>
         </Suspense>
     )
@@ -20,7 +21,9 @@ const app = createRoot(document.getElementById('root'))
 app.render(
     <StrictMode>
         <BrowserRouter>
-            <App />
+            <AuthProvider>
+                <App />
+            </AuthProvider>
         </BrowserRouter>
     </StrictMode>
 )
