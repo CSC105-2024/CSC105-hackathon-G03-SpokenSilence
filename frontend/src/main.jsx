@@ -2,6 +2,10 @@ import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import routes from '~react-pages'
+import {
+    BrowserRouter,
+    useRoutes,
+} from 'react-router-dom'
 
 function App() {
     const route = useRoutes(routes)

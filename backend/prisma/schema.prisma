@@ -7,8 +7,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Users {
@@ -16,6 +17,8 @@ model Users {
   username String
   name     String
   surname  String
+  password String
+  url_user String
 
   flowers  Flowers[]
   history  History[]
@@ -23,6 +26,7 @@ model Users {
 
 model Flowers {
   id         Int       @id @default(autoincrement())
+  name       String
   message    String
   url_flower String
   access_key Int
@@ -34,13 +38,14 @@ model Flowers {
 }
 
 model History {
-  id        Int     @id @default(autoincrement())
-  flower_id Int
-  user_id   Int
-  view_at   DateTime
+  id          Int     @id @default(autoincrement())
+  flower_id   Int
+  user_id     Int?
+  view_count  Int @default(0)
+  view_at     DateTime
 
   flower    Flowers @relation(fields: [flower_id], references: [id])
-  user      Users   @relation(fields: [user_id], references: [id])
+  user      Users?   @relation(fields: [user_id], references: [id])
 }
 
 model Meaning {
