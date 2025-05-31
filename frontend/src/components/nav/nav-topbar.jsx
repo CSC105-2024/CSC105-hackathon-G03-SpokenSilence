@@ -27,11 +27,11 @@ const Navbar = () => {
     <nav>
       <div className="container mx-auto md:text-sm">
         <div className="flex items-center justify-center ">
-          <ul className="hidden space-x-6 md:flex border-1 px-10 rounded-xl py-2 shadow-md bg-stone-50 ">
+          <ul className="hidden space-x-6 md:flex border-1 px-10 rounded-3xl py-2 shadow-md bg-stone-50 ">
             <li
               className={`hidden py-2 px-3 md:flex cursor-pointer  ${
                 active === "/"
-                  ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-xl text-white"
+                  ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl text-white"
                   : ""
               }`}
               onClick={() => navigate("/")}
@@ -44,7 +44,7 @@ const Navbar = () => {
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
                     active === "/dashboard"
-                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-xl  text-white"
+                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
                   onClick={() => navigate("/dashboard")}
@@ -54,7 +54,7 @@ const Navbar = () => {
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
                     active === "/flower-information"
-                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-xl  text-white"
+                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
                   onClick={() => navigate("/flower-information")}
@@ -94,7 +94,7 @@ const Navbar = () => {
                 <li
                   className={`hidden py-2 px-3 md:flex cursor-pointer ${
                     active === "/Signin"
-                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-xl  text-white"
+                      ? "bg-gradient-to-bl from-fuchsia-600 to-purple-600 rounded-3xl  text-white"
                       : ""
                   }`}
                   onClick={() => navigate("/Signin")}
