@@ -11,6 +11,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { CircleUser, LogOut, Moon, Sun } from "lucide-react";
+import Changeprofile from "@/components/dialog/changeprofile";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Navbar = () => {
   useEffect(() => {
     setActive(location.pathname);
   }, [location.pathname]);
+  const [dialogType, setDialogType] = useState(null);
 
   return (
     <nav>
@@ -71,7 +73,7 @@ const Navbar = () => {
                     <Button
                       variant="secondary"
                       size="icon"
-                      className="hidden rounded-full md:flex"
+                      className="hidden rounded-full md:flex cursor-pointer"
                     >
                       <CircleUser className="h-5 w-5" />
                       <span className="sr-only">Toggle user menu</span>
@@ -80,12 +82,14 @@ const Navbar = () => {
                   <DropdownMenuContent align="end" className="hidden md:block">
                     <DropdownMenuItem
                       className="cursor-pointer"
-                      onClick={() => navigate("/Change-Profile")}
+                      onClick={() => setDialogType("Changeprofile")}
                     >
                       Change Profile
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={"cursor-pointer"}>
-                      <LogOut className="mr-2 h-4 w-4" />
+                    <DropdownMenuItem
+                      className={"cursor-pointer"}
+                      onClick={() => navigate("/")}
+                    >
                       Signout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -104,6 +108,12 @@ const Navbar = () => {
               )}
             </li>
           </ul>
+          {dialogType === "Changeprofile" && (
+            <Changeprofile
+              open={true}
+              onOpenChange={() => setDialogType(null)}
+            />
+          )}
         </div>
       </div>
     </nav>

@@ -54,7 +54,7 @@ const Dot = () => {
       {dialogType === "delete" && (
         <Delete open={true} onOpenChange={() => setDialogType(null)} />
       )}
-    </div>
+    </div> 
   );
 };
 
