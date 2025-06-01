@@ -26,6 +26,8 @@ api.post('/auth/refresh', authMiddleware, (c) => AuthController.refresh(c))
 api.get('/flowers', authMiddleware, (c) => FlowerController.readById(c))
 api.post('/flowers', authMiddleware, (c) => FlowerController.create(c));
 api.post('/flowers/access', (c) => FlowerController.validAccess(c))
+api.patch('/flowers/update', authMiddleware, (c) => FlowerController.updateById(c))
+api.delete('/flowers', (c) => FlowerController.deleteById(c))
 
 api.get('/history', authMiddleware, (c) => HistoryController.getAll(c))
 

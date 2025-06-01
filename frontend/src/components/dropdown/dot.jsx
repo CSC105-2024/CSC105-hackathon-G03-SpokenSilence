@@ -13,7 +13,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
@@ -33,11 +32,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { EllipsisVertical } from "lucide-react";
 import { Copy } from "lucide-react";
+import { useFlower } from "@/contexts/flower-context.jsx";
 
-const Dot = ({ accessKey , link }) => {
+const Dot = ({ accessKey, link, id }) => {
+  const { deleteFlower, updateFlower } = useFlower();
   const [dialogType, setDialogType] = useState(null);
-  console.log(link);
 
+  const [editMessage, setEditMessage] = useState("");
+  const [editFlowerId, setEditFlowerId] = useState(null);
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    setDialogType(null);
+  };
+
+    
   return (
       <div>
         <DropdownMenu>
@@ -54,7 +63,11 @@ const Dot = ({ accessKey , link }) => {
               Share
             </DropdownMenuItem>
             <DropdownMenuItem
-                onClick={() => setDialogType("edit")}
+                onClick={() => {
+                  setEditFlowerId(id);
+                  setEditMessage("");
+                  setDialogType("edit");
+                }}
                 className={"cursor-pointer"}
             >
               Edit
@@ -69,7 +82,11 @@ const Dot = ({ accessKey , link }) => {
         </DropdownMenu>
 
         {dialogType === "share" && (
-            <Dialog open={dialogType === "share"} onOpenChange={() => setDialogType(null)}>
+            <Dialog
+                open={true}
+                onOpenChange={() => setDialogType(null)}
+                key="share-dialog"
+            >
               <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                   <DialogTitle>Share Your Rose</DialogTitle>
@@ -98,11 +115,7 @@ const Dot = ({ accessKey , link }) => {
                     </div>
                     Link:
                     <div className="flex">
-                      <Input
-                          id="link"
-                          defaultValue={link}
-                          readOnly
-                      />
+                      <Input id="link" defaultValue={link} readOnly />
                       <Button
                           variant="outline"
                           className="ml-2"
@@ -120,33 +133,42 @@ const Dot = ({ accessKey , link }) => {
         )}
 
         {dialogType === "edit" && (
-            <Dialog open={dialogType === "edit"} onOpenChange={() => setDialogType(null)}>
-              <form>
+            <Dialog
+                open={true}
+                onOpenChange={() => setDialogType(null)}
+                key="edit-dialog"
+            >
+              <form onSubmit={handleEditSubmit}>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
-                    <DialogTitle>Edit you Card</DialogTitle>
+                    <DialogTitle>Edit your Card</DialogTitle>
                   </DialogHeader>
                   <div className="grid gap-4">
                     <div className="grid gap-3">
-                      <Label htmlFor="name-1">Choose new Your Flower:</Label>
-                      <Choseflower />
+                      <Label htmlFor="flower-select">Choose your Flower:</Label>
+                      <Choseflower
+                          id="flower-select"
+                      />
                     </div>
                     <div className="grid gap-3">
-                      <Label htmlFor="username-1">Your Message:</Label>
-                      <Textarea placeholder="Type your message here." />
+                      <Label htmlFor="message-textarea">Your Message:</Label>
+                      <Textarea
+                          id="message-textarea"
+                          placeholder="Type your message here."
+                          value={editMessage}
+                          onChange={(e) => setEditMessage(e.target.value)}
+                      />
                     </div>
                   </div>
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button variant="outline" className={"cursor-pointer"}>
+                      <Button variant="outline" type="button" className={"cursor-pointer"}>
                         Cancel
                       </Button>
                     </DialogClose>
-                    <DialogClose asChild>
-                      <Button type="submit" className={"cursor-pointer"}>
-                        Save changes
-                      </Button>
-                    </DialogClose>
+                    <Button type="submit" className={"cursor-pointer"} onClick={() => u}>
+                      Save changes
+                    </Button>
                   </DialogFooter>
                 </DialogContent>
               </form>
@@ -154,7 +176,11 @@ const Dot = ({ accessKey , link }) => {
         )}
 
         {dialogType === "delete" && (
-            <AlertDialog open={dialogType === "delete"} onOpenChange={() => setDialogType(null)}>
+            <AlertDialog
+                open={true}
+                onOpenChange={() => setDialogType(null)}
+                key="delete-dialog"
+            >
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -164,10 +190,19 @@ const Dot = ({ accessKey , link }) => {
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className={"cursor-pointer"}>
+                  <AlertDialogCancel
+                      className={"cursor-pointer"}
+                      onClick={() => setDialogType(null)}
+                  >
                     Cancel
                   </AlertDialogCancel>
-                  <AlertDialogAction className={"cursor-pointer"}>
+                  <AlertDialogAction
+                      className={"cursor-pointer"}
+                      onClick={() => {
+                        deleteFlower({ id });
+                        setDialogType(null);
+                      }}
+                  >
                     Continue
                   </AlertDialogAction>
                 </AlertDialogFooter>

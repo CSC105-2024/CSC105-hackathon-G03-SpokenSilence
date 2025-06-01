@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {access_service, create_service, get_service} from '../services/flower.service.jsx';
+import {access_service, create_service, delete_service, get_service, update_service} from '../services/flower.service.jsx';
 
 const FlowerContext = createContext();
 
@@ -32,7 +32,7 @@ export const FlowerProvider = ({ children }) => {
             const response = await create_service({name, message, access_key, url_flower, url });
             if (response.success) {
                 // const allFlower = await get_service();
-                setFlower((prev) => [...prev, ...response?.data?.data]);
+                setFlower((prev) => [...prev, response?.data?.data]);
             }
             return response?.data?.data;
         } catch (error) {
@@ -50,6 +50,7 @@ export const FlowerProvider = ({ children }) => {
             if (response.success) {
                 setFlower(response?.data?.data)
             }
+            return response?.data?.data;
         } catch (error) {
             setFlower(null)
             setError(error?.response?.error)
@@ -58,6 +59,56 @@ export const FlowerProvider = ({ children }) => {
         }
     }
 
+    const deleteFlower = async ({ id }) => {
+        try {
+            setLoading(true);
+            const response = await delete_service({ id });
+            if (response.success) {
+                setFlower((prev) => prev.filter(flower => flower.id !== id));
+            }
+        } catch (error) {
+            setError(error?.response?.error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const update_service = async (id, data) => {
+        try {
+            const response = await fetch(`/api/flowers/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update flower");
+            }
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    const updateFlower = async (id, data) => {
+        try {
+            setLoading(true);
+            const response = await update_service(id, data);
+            if (response.success) {
+                setFlower((prev) =>
+                    prev.map((flower) => (flower.id === id ? response.data.data : flower))
+                );
+            }
+            return response.data.data;
+        } catch (error) {
+            setError(error?.response?.error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <FlowerContext.Provider value={{
             loading,
@@ -65,6 +116,8 @@ export const FlowerProvider = ({ children }) => {
             flower,
             checkAccessKey,
             createFlower,
+            deleteFlower,
+            updateFlower
         }}
         >
             {children}

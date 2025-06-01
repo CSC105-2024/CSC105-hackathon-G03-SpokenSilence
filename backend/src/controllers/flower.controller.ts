@@ -24,6 +24,19 @@ class FlowerCrud extends AbstractController {
 
         return this.data(c, flower, 200, 'Flower valid')
     }
+
+    async deleteById(c: Context) {
+        const {id} = c.req.query()
+
+        await FlowerModel.deleteById(parseInt(id))
+        return this.json(c, 200, 'Post removed')
+    }
+    
+    async updateById(c: Context) {
+        const body = await c.req.json()
+        await FlowerModel.updateById(body.id, body)
+        return this.json(c, 200, 'Post updated')
+    }
 }
 
 const FlowerController = new FlowerCrud()

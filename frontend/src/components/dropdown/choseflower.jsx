@@ -7,11 +7,11 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-const Choseflower = () => {
+const Choseflower = ({ value, onValueChange, ...props }) => {
     return (
-        <Select>
+        <Select value={value} onValueChange={onValueChange} {...props}>
             <SelectTrigger className="w-full">
-                <SelectValue placeholder="Rose" />
+                <SelectValue placeholder="Select you flower" />
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="Rose">Rose</SelectItem>

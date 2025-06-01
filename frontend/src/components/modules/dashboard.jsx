@@ -14,7 +14,13 @@ const DashboardMo = () => {
             
             {flower?.map((f) => (
                 <div className="py-5" key={f.id}>
-                    <DetailCard message={f.message} accessKey={f.access_key} link={f.url} />
+                    <DetailCard 
+                        message={f.message}
+                        accessKey={f.access_key}
+                        link={f.url}
+                        id={f.id}
+                        create_at={f.create_at}
+                    />
                 </div>
             ))}
         </div>

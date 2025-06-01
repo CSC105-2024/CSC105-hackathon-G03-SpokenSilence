@@ -19,7 +19,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useFlower } from "@/contexts/flower-context.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 const Create = () => {
   const { createFlower, loading } = useFlower();
@@ -49,9 +49,10 @@ const Create = () => {
       access_key: newAccessKey,
       url: shareUrl
     });
-
-    if (createFlower.ok) setOpen(false);
+    console.log(loading);
+    if (!loading) setOpen(false);
   };
+  
 
   return (
       <Dialog open={open} onOpenChange={setOpen}>

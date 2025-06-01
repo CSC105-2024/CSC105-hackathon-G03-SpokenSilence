@@ -8,6 +8,7 @@ import {
 import routes from '~react-pages'
 import Layout from '@/components/layouts/main-layout.jsx'
 import { AuthProvider } from './contexts/auth-context.jsx'
+import {FlowerProvider} from "@/contexts/flower-context.jsx";
 
 function App() {
     return (
@@ -22,7 +23,9 @@ app.render(
     <StrictMode>
         <BrowserRouter>
             <AuthProvider>
-                <App />
+                <FlowerProvider>
+                    <App />
+                </FlowerProvider>
             </AuthProvider>
         </BrowserRouter>
     </StrictMode>

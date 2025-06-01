@@ -5,7 +5,6 @@ import {FlowerProvider} from "@/contexts/flower-context.jsx";
 const Index = () => {
     const {id} = useParams();
     const newId = Number(id);
-    console.log(newId)
     return (
         <>
             <FlowerProvider>

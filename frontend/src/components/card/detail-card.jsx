@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Dot from "@/components/dropdown/dot";
 
-const DetailCard = ({ message, accessKey , link}) => {
+const DetailCard = ({ message, accessKey , link, id, create_at}) => {
   const viewers = [
     {
       id: 1,
@@ -30,7 +30,16 @@ const DetailCard = ({ message, accessKey , link}) => {
       initials: "T1",
     },
   ];
-  console.log(link);
+  const formatDate = (date) => {
+    let d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+    return [year, month, day].join("-");
+  };
 
   return (
     <Drawer>
@@ -41,7 +50,7 @@ const DetailCard = ({ message, accessKey , link}) => {
               className="w-full flex justify-end mb-4 lg:hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <Dot className="text-gray-600 cursor-pointer" accessKey={accessKey} link={link}  />
+              <Dot className="text-gray-600 cursor-pointer" accessKey={accessKey} link={link}  id={id}/>
             </div>
 
             <div className="flex flex-col items-center lg:flex-row lg:items-center">
@@ -58,7 +67,7 @@ const DetailCard = ({ message, accessKey , link}) => {
                 </p>
                 <div className="flex items-center mt-2 lg:mt-4">
                   <Calendar className="w-4 h-4 text-gray-600" />
-                  <p className="text-gray-700 ml-2 lg:ml-3">20/12/2020</p>
+                  <p className="text-gray-700 ml-2 lg:ml-3">{formatDate(create_at)}</p>
                 </div>
               </div>
             </div>
@@ -67,7 +76,7 @@ const DetailCard = ({ message, accessKey , link}) => {
               className="hidden lg:block"
               onClick={(e) => e.stopPropagation()}
             >
-              <Dot accessKey={accessKey} link={link}/>
+              <Dot accessKey={accessKey} link={link} id={id}/>
             </div>
           </CardContent>
         </Card>

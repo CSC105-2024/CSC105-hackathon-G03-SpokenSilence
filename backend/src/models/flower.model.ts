@@ -53,9 +53,9 @@ class FlowerModelLo {
         userId:number
     ) {
         
-        const flower = await prisma.flowers.findUnique({
+        const flower = await prisma.flowers.findFirst({
             where: {
-                id: flowerId,
+                access_key: Number(accessKey),
             }
         })
         
@@ -67,7 +67,7 @@ class FlowerModelLo {
             })
         }
 
-        if (accessKey !== flower.access_key) {
+        if (Number(accessKey) !== flower.access_key) {
             throw new HTTPException(400, {
                 message: "AccessKey is invalid",
             })
@@ -100,6 +100,29 @@ class FlowerModelLo {
             })
         }
         return flower
+    }
+
+    async deleteById(id: number) {
+        try {
+            return await prisma.flowers.delete({
+                where: {
+                    id
+                }
+            });
+        } catch (error) {
+            throw new HTTPException(404,{
+                message: 'Cannot delete post',
+                cause: {form: true},
+            })
+        }
+    }
+    async updateById(id: number, data: Flower) {
+        return prisma.flowers.update({
+            where: {
+                id: id
+            },
+            data: data
+        })
     }
 }
 
