@@ -5,7 +5,8 @@ const SpokenSilenceAccess = ({ id }) => {
   const { checkAccessKey } = useFlower();
   const [accessKey, setAccessKey] = useState('');
   const [locked, setLocked] = useState(false);
-
+  const { flower } = useFlower();
+  console.log(flower)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -14,7 +15,7 @@ const SpokenSilenceAccess = ({ id }) => {
     };
     try {
       const response = await checkAccessKey(payload);
-      if (response && !response.success) {
+      if (response) {
         setLocked(true);
       }
     } catch (error) {
@@ -67,9 +68,37 @@ const SpokenSilenceAccess = ({ id }) => {
   }
 
   return (
-      <div className="text-center mt-12">
-        <h2 className="text-3xl font-bold text-green-600">Access Granted!</h2>
-        <p className="mt-4 text-gray-700">You can now view the flower.</p>
+      <div className="bg-white flex flex-col items-center justify-center p-6">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-sm w-full">
+          <div className="aspect-square overflow-hidden">
+            <img
+                src={flower.url_flower}
+                alt={flower.name}
+                className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="p-6 text-center">
+            <h2 className="text-xl font-bold text-purple-600 mb-2">
+              {flower.name}
+            </h2>
+            <p className="text-black text-sm">
+              {flower.message}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className="text-gray-600 text-sm">
+            If you want to know meaning{' '}
+            <a
+                onClick={() => navigate("/system/sign-up")}
+                className="text-purple-600 font-medium hover:text-purple-800 transition-colors"
+            >
+              Signin
+            </a>
+          </p>
+        </div>
       </div>
   );
 };

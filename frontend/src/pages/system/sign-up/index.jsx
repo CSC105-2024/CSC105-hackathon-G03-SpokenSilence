@@ -156,10 +156,6 @@ function Register() {
                             </div>
                         </div>
                     </form>
-                    <SquareArrowLeft
-                        className="size-6 cursor-pointer mt-4"
-                        onClick={() => navigate("/")}
-                    />
                 </div>
             </div>
             </div>

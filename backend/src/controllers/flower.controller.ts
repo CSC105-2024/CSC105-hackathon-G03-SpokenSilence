@@ -33,8 +33,8 @@ class FlowerCrud extends AbstractController {
     }
     
     async updateById(c: Context) {
-        const body = await c.req.json()
-        await FlowerModel.updateById(body.id, body)
+        const {flower_id, message } = await c.req.json()
+        await FlowerModel.updateById(flower_id, message)
         return this.json(c, 200, 'Post updated')
     }
 }

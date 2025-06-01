@@ -21,6 +21,7 @@ import {
 
 import NavUser from "./nav-user";
 import { Button } from "../ui/button";
+import {useAuth} from "@/contexts/auth-context.jsx";
 
 const items = [
   {
@@ -41,7 +42,7 @@ const AppSidebar = ({ ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
-  const isAuthenticated = true;  
+  const { isAuth, signOutUser } = useAuth()
 
   useEffect(() => {
     setActive(location.pathname);
@@ -82,7 +83,7 @@ const AppSidebar = ({ ...props }) => {
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
-              {isAuthenticated && (
+              {isAuth && (
                 <>
                   <SidebarMenuItem>
                     <SidebarMenuButton 
@@ -94,7 +95,7 @@ const AppSidebar = ({ ...props }) => {
                       }`}
                     >
                       <Link 
-                        to="/auth/dashboard/dashboard" 
+                        to="/dashboard" 
                         className="flex items-center"
                         onClick={() => handleLinkClick(items[1])}
                       >
@@ -128,7 +129,7 @@ const AppSidebar = ({ ...props }) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {isAuthenticated ? (
+        {isAuth ? (
           <NavUser />
         ) : (
           <div className="p-4">

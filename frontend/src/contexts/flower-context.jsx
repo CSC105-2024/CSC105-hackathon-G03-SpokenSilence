@@ -23,6 +23,9 @@ export const FlowerProvider = ({ children }) => {
                 setLoading(false);
             }
         }
+        // setTimeout(() => {
+        //     fetchFlower()
+        // }, 200)
         fetchFlower()
     }, [])
 
@@ -59,6 +62,23 @@ export const FlowerProvider = ({ children }) => {
         }
     }
 
+    const updateFlower = async ({flower_id, message}) => {
+        try {
+            setLoading(true);
+            const response = await update_service({flower_id, message});
+            if (response.success) {
+                setFlower((prev) =>
+                    prev.map((f) => (f?.id === flower_id ? response?.data?.data : f))
+                );
+            }
+            return response?.data?.data;
+        } catch (error) {
+            setError(error?.response?.error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
     const deleteFlower = async ({ id }) => {
         try {
             setLoading(true);
@@ -66,42 +86,6 @@ export const FlowerProvider = ({ children }) => {
             if (response.success) {
                 setFlower((prev) => prev.filter(flower => flower.id !== id));
             }
-        } catch (error) {
-            setError(error?.response?.error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const update_service = async (id, data) => {
-        try {
-            const response = await fetch(`/api/flowers/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to update flower");
-            }
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    const updateFlower = async (id, data) => {
-        try {
-            setLoading(true);
-            const response = await update_service(id, data);
-            if (response.success) {
-                setFlower((prev) =>
-                    prev.map((flower) => (flower.id === id ? response.data.data : flower))
-                );
-            }
-            return response.data.data;
         } catch (error) {
             setError(error?.response?.error);
         } finally {

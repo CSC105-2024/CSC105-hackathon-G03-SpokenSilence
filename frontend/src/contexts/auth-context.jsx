@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const response = await signUp({username, surname, password, name, url_user });
-            if (response.success) {
+            if (response.ok) {
                 setUser(response?.data?.data);
                 navigate('/system/sign-in');
             }

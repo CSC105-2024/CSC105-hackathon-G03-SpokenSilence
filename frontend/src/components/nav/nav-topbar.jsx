@@ -83,12 +83,12 @@ const Navbar = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="hidden md:block">
-                    <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => setDialogType("Changeprofile")}
-                    >
-                      Change Profile
-                    </DropdownMenuItem>
+                    {/*<DropdownMenuItem*/}
+                    {/*    className="cursor-pointer"*/}
+                    {/*    onClick={() => setDialogType("Changeprofile")}*/}
+                    {/*>*/}
+                    {/*  Change Profile*/}
+                    {/*</DropdownMenuItem>*/}
                     <DropdownMenuItem
                         className={"cursor-pointer"}
                         onClick={handleLogout}

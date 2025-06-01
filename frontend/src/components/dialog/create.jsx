@@ -45,14 +45,14 @@ const Create = () => {
     await createFlower({
       name: flower,
       message,
-      url_flower: "ddddlll",
+      url_flower: getFlowerUrl(flower),
       access_key: newAccessKey,
       url: shareUrl
     });
     console.log(loading);
     if (!loading) setOpen(false);
   };
-  
+
 
   return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -107,7 +107,7 @@ const Create = () => {
                 </Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button type="submit" className="cursor-pointer" onClick={handleSave}>
+                <Button type="submit" className="cursor-pointer bg-gradient-to-bl from-fuchsia-600 to-purple-600" onClick={handleSave}>
                   Save changes
                 </Button>
               </DialogClose>
@@ -119,3 +119,19 @@ const Create = () => {
 };
 
 export default Create;
+
+const getFlowerUrl = (flowerName) => {
+  const flowerMap = {
+  "Rose": "https://images.unsplash.com/photo-1559563362-c667ba5f5480?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9zZXxlbnwwfHwwfHx8MA%3D%3D",
+  "Peony": "https://img.freepik.com/premium-photo/time-lapse-series-capturing-growth-blooming-peony-flowers_25996-8700.jpg",
+  "Daffodil": "https://www.dutchgrown.com/cdn/shop/products/Daffodil_Marieke-1.jpg?v=1677079114",
+  "Daisy": "https://ferrymorse.com/cdn/shop/files/Shasta_Daisy_Alaska_Variety.jpg?v=1736277601&width=1360",
+  "Camellia": "https://www.provenwinnerscolorchoice.com/wp-content/uploads/2024/09/Camellia-Just-Chill-Double-Pink-1.jpg",
+  "Chrysanthemum": "https://rukminim2.flixcart.com/image/850/1000/xif0q/plant-seed/i/p/7/40-chrysanthemum-flower-seeds-c-648-kanaya-original-imaghmwateaqzfhr.jpeg?q=20&crop=false",
+  "jasmine": "https://incenseomega.com/cdn/shop/articles/omega-blog11-Jasmine-incense-sticks-benefits-1.jpg?v=1707201886",
+  "Hydrangea": "https://www.tytyga.com/v/vspfiles/photos/SHRFLR-HYD-NIKKO-2T.jpg",
+  "Sweet Pea": "https://news.oregonstate.edu/sites/news.oregonstate.edu/files/styles/1400x900/public/sweet-pea-blossom.jpg?itok=4u9q9VHo",
+  "Lily": "https://a.allegroimg.com/original/11a603/bdb763464f2790dbf7a3af35ca04/Lilia-blue-cebule-Sadzimy-pl"
+};
+  return flowerMap[flowerName] || "";
+};

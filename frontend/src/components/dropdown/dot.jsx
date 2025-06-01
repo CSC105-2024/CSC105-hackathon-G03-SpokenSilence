@@ -31,22 +31,36 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { EllipsisVertical } from "lucide-react";
-import { Copy } from "lucide-react";
+import { Copy , Check } from "lucide-react";
 import { useFlower } from "@/contexts/flower-context.jsx";
 
 const Dot = ({ accessKey, link, id }) => {
-  const { deleteFlower, updateFlower } = useFlower();
-  const [dialogType, setDialogType] = useState(null);
+    const { deleteFlower, updateFlower } = useFlower();
+    const [dialogType, setDialogType] = useState(null);
+    const [editMessage, setEditMessage] = useState("");
+    const [copiedAccessKey, setCopiedAccessKey] = useState(false);
+    const [copiedLink, setCopiedLink] = useState(false);
 
-  const [editMessage, setEditMessage] = useState("");
-  const [editFlowerId, setEditFlowerId] = useState(null);
+    const handleEditSubmit = (e) => {
+      e.preventDefault();
+      setDialogType(null);
+    };
 
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-    setDialogType(null);
-  };
+    const handleCopyAccessKey = async () => {
+      await navigator.clipboard.writeText(accessKey || "");
+      setCopiedAccessKey(true);
+      setTimeout(() => setCopiedAccessKey(false), 2000);
+    };
 
-    
+    const handleCopyLink = async () => {
+      await navigator.clipboard.writeText(link);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    };
+
+    console.log(id)
+
+  
   return (
       <div>
         <DropdownMenu>
@@ -64,8 +78,6 @@ const Dot = ({ accessKey, link, id }) => {
             </DropdownMenuItem>
             <DropdownMenuItem
                 onClick={() => {
-                  setEditFlowerId(id);
-                  setEditMessage("");
                   setDialogType("edit");
                 }}
                 className={"cursor-pointer"}
@@ -87,47 +99,98 @@ const Dot = ({ accessKey, link, id }) => {
                 onOpenChange={() => setDialogType(null)}
                 key="share-dialog"
             >
-              <DialogContent className="sm:max-w-md">
+              <DialogContent className="sm:max-w-lg">
                 <DialogHeader>
-                  <DialogTitle>Share Your Rose</DialogTitle>
-                  <DialogDescription>
-                    Share the link and provide the access key to your special.
+                  <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                    Share Your Rose 
+                  </DialogTitle>
+                  <DialogDescription className="text-gray-600">
+                    Share the link and provide the access key to your special someone.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="flex items-center gap-2">
-                  <div className="grid flex-1 gap-2">
-                    Access key:
-                    <div className="flex">
+
+                <div className="space-y-6 mt-6">
+                  {/* Access Key Section */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      Access Key
+                    </Label>
+                    <div className="flex items-center gap-2">
                       <Input
                           id="accessKey"
                           defaultValue={accessKey || "No access key"}
                           readOnly
+                          className="bg-gray-50 border-gray-200 font-mono text-sm"
                       />
                       <Button
                           variant="outline"
-                          className="ml-2"
-                          onClick={() => {
-                            navigator.clipboard.writeText(accessKey || "");
-                          }}
+                          size="sm"
+                          className={`min-w-[80px] transition-all duration-200 ${
+                              copiedAccessKey
+                                  ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100'
+                                  : 'hover:bg-gray-50'
+                          }`}
+                          onClick={handleCopyAccessKey}
                       >
-                        <Copy />
-                      </Button>
-                    </div>
-                    Link:
-                    <div className="flex">
-                      <Input id="link" defaultValue={link} readOnly />
-                      <Button
-                          variant="outline"
-                          className="ml-2"
-                          onClick={() => {
-                            navigator.clipboard.writeText(link);
-                          }}
-                      >
-                        <Copy />
+                        {copiedAccessKey ? (
+                            <>
+                              <Check className="w-4 h-4 mr-1" />
+                              Copied!
+                            </>
+                        ) : (
+                            <>
+                              <Copy className="w-4 h-4 mr-1" />
+                              Copy
+                            </>
+                        )}
                       </Button>
                     </div>
                   </div>
+
+                  {/* Link Section */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      Share Link
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                          id="link"
+                          defaultValue={link}
+                          readOnly
+                          className="bg-gray-50 border-gray-200 font-mono text-sm"
+                      />
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className={`min-w-[80px] transition-all duration-200 ${
+                              copiedLink
+                                  ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100'
+                                  : 'hover:bg-gray-50'
+                          }`}
+                          onClick={handleCopyLink}
+                      >
+                        {copiedLink ? (
+                            <>
+                              <Check className="w-4 h-4 mr-1" />
+                              Copied!
+                            </>
+                        ) : (
+                            <>
+                              <Copy className="w-4 h-4 mr-1" />
+                              Copy
+                            </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+
+                  
                 </div>
+
+                <DialogFooter className="mt-6">
+                  <DialogClose asChild>
+                  </DialogClose>
+                </DialogFooter>
               </DialogContent>
             </Dialog>
         )}
@@ -144,12 +207,7 @@ const Dot = ({ accessKey, link, id }) => {
                     <DialogTitle>Edit your Card</DialogTitle>
                   </DialogHeader>
                   <div className="grid gap-4">
-                    <div className="grid gap-3">
-                      <Label htmlFor="flower-select">Choose your Flower:</Label>
-                      <Choseflower
-                          id="flower-select"
-                      />
-                    </div>
+                    
                     <div className="grid gap-3">
                       <Label htmlFor="message-textarea">Your Message:</Label>
                       <Textarea
@@ -166,9 +224,20 @@ const Dot = ({ accessKey, link, id }) => {
                         Cancel
                       </Button>
                     </DialogClose>
-                    <Button type="submit" className={"cursor-pointer"} onClick={() => u}>
+                    <Button
+                        type="submit"
+                        className="cursor-pointer bg-gradient-to-bl from-fuchsia-600 to-purple-600 text-white"
+                        onClick={async () => {
+                          await updateFlower({
+                            flower_id: id,
+                            message: editMessage,
+                          });
+                          window.location.reload()
+                        }}
+                    >
                       Save changes
                     </Button>
+
                   </DialogFooter>
                 </DialogContent>
               </form>
@@ -197,7 +266,7 @@ const Dot = ({ accessKey, link, id }) => {
                     Cancel
                   </AlertDialogCancel>
                   <AlertDialogAction
-                      className={"cursor-pointer"}
+                      className={"cursor-pointer bg-gradient-to-bl from-fuchsia-600 to-purple-600 text-white"}
                       onClick={() => {
                         deleteFlower({ id });
                         setDialogType(null);

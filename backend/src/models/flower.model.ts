@@ -116,12 +116,14 @@ class FlowerModelLo {
             })
         }
     }
-    async updateById(id: number, data: Flower) {
+    async updateById(id: number, message: string) {
         return prisma.flowers.update({
             where: {
                 id: id
             },
-            data: data
+            data: {
+                message: message
+            }
         })
     }
 }
